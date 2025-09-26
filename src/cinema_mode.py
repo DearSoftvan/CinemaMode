@@ -5,7 +5,7 @@ import subprocess
 
 # Proje kök dizinini bul (src'nin bir üstü)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-VOLUME_STATE_FILE = os.path.join(BASE_DIR, "volume_state.json")
+VOLUME_STATE_FILE = os.path.join(BASE_DIR, "src", "locales", "volume_state.json")
 
 def load_language(lang="en"):
     """
