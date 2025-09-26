@@ -36,9 +36,9 @@ def activate_cinema_mode(lang="en"):
             "osascript", "-e",
             'set volume output volume 50'
         ])
-        print(messages.get("success", "Cinema Mode activated!"))
+        print(messages.get("activate", "Cinema Mode activated!"))
+        print(messages.get("tip", "Only the selected media app will play sound through your speakers."))
     except Exception as e:
-        # Tek satır string kullanıldı, hata mesajı güvenli
         print(messages.get("error", "Error while activating Cinema Mode:"), e)
 
 if __name__ == "__main__":
@@ -47,4 +47,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     activate_cinema_mode(args.lang)
-

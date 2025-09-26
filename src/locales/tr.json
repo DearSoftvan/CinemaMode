@@ -1,6 +1,8 @@
 {
-  "activate": "Sinema Modu aktif!",
-  "deactivate": "Sinema Modu kapandı!",
-  "tip": "Sadece seçilen medya uygulamasının sesi hoparlörden çalacak."
+  "activate": "Sinema Modu etkinleştirildi!",
+  "deactivate": "Sinema Modu devre dışı bırakıldı!",
+  "tip": "Yalnızca seçtiğiniz medya uygulamasının sesi hoparlörden çıkacaktır.",
+  "starting": "Sinema Modu başlatılıyor...",
+  "success": "Sinema Modu başarıyla etkinleştirildi!",
+  "error": "Sinema Modu etkinleştirilirken hata oluştu:"
 }
-
