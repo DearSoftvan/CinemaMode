@@ -1,6 +1,5 @@
 {
   "activate": "Cinema Mode activated!",
   "deactivate": "Cinema Mode deactivated!",
-  "tip": "Only the selected media app will play sound through your 
-speakers."
+  "tip": "Only the selected media app will play sound through your speakers."
 }

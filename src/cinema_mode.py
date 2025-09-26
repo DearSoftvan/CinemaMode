@@ -1,53 +1,50 @@
-#!/usr/bin/env python3
+import os
 import json
-import subprocess
 import argparse
-import sys
+import subprocess
 
-def load_language(lang='en'):
-    """Load language JSON file."""
+# Proje kök dizinini bul (src'nin bir üstü)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def load_language(lang="en"):
+    """
+    JSON dil dosyasını yükler.
+    Eğer istenen dil bulunmazsa İngilizceye döner.
+    """
     try:
-        with open(f'locales/{lang}.json', 'r') as f:
+        path = os.path.join(BASE_DIR, "locales", f"{lang}.json")
+        with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
     except FileNotFoundError:
         print("Language file not found, defaulting to English.")
-        with open('locales/en.json', 'r') as f:
+        fallback = os.path.join(BASE_DIR, "locales", "en.json")
+        with open(fallback, "r", encoding="utf-8") as f:
             return json.load(f)
 
-def activate_blackhole():
-    """Set system audio output to BlackHole (2ch)."""
+def activate_cinema_mode(lang="en"):
+    """
+    Cinema Mode'u aktif eder.
+    Şu anda örnek olarak ses çıkışını %50 yapar ve mesaj verir.
+    """
+    messages = load_language(lang)
+
+    print(messages.get("starting", "Starting Cinema Mode..."))
+
     try:
+        # Örn: BlackHole ses aygıtını varsayılan yap
         subprocess.run([
             "osascript", "-e",
-            'set volume output volume 100',
+            'set volume output volume 50'
         ])
-        # Buraya ileride CoreAudio veya AppleScript ile BlackHole seçimi 
-eklenebilir
-        print("BlackHole audio device should now be active for selected 
-app.")
+        print(messages.get("success", "Cinema Mode activated!"))
     except Exception as e:
-        print(f"Error activating BlackHole: {e}")
-
-def activate_cinema_mode(lang='en'):
-    messages = load_language(lang)
-    print(messages['activate'])
-    activate_blackhole()
-    print(messages['tip'])
-
-def deactivate_cinema_mode(lang='en'):
-    messages = load_language(lang)
-    print(messages['deactivate'])
-    # Buraya default hoparlörü geri almak için kod eklenebilir
+        # Tek satır string kullanıldı, hata mesajı güvenli
+        print(messages.get("error", "Error while activating Cinema Mode:"), e)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Cinema Mode for MacOS")
-    parser.add_argument('--lang', default='en', help='Language: en or tr')
-    parser.add_argument('--deactivate', action='store_true', 
-help='Deactivate Cinema Mode')
+    parser = argparse.ArgumentParser(description="Cinema Mode Utility")
+    parser.add_argument("--lang", default="en", help="Language code (en, tr)")
     args = parser.parse_args()
 
-    if args.deactivate:
-        deactivate_cinema_mode(args.lang)
-    else:
-        activate_cinema_mode(args.lang)
+    activate_cinema_mode(args.lang)
 
